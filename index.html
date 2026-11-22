@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<title>Easy Target Games</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Free, short, friendly browser games from Easy Target. No ads, no sign-ups.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Press+Start+2P&display=swap">
+<style>
+/* Layout: plain hero, two game cards, short "What EasyTarget?" note, coffee tips via PayPal. */
+:root {
+  --paper: #edf1f5;
+  --card: #ffffff;
+  --ink: #16203a;
+  --muted: #55607a;
+  --line: #cdd5e0;
+  --target: #d63f2c;
+  --brass: #e5a321;
+  --brass-ink: #2a1d02;
+  --feed: #16203a;
+  --feed-fg: #dfe6f2;
+  --feed-dim: #8693ad;
+  --shadow: 0 1px 0 rgba(22,32,58,.06), 0 10px 30px -18px rgba(22,32,58,.35);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --pixel: "Press Start 2P", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1628; --card: #161f37; --ink: #e8edf6; --muted: #9ba6bf; --line: #27324f;
+    --target: #ff6b55; --brass: #f2bb45; --brass-ink: #241800;
+    --feed: #0a1020; --feed-fg: #dfe6f2; --feed-dim: #7b88a3;
+    --shadow: 0 1px 0 rgba(0,0,0,.3), 0 14px 34px -18px rgba(0,0,0,.7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1628; --card: #161f37; --ink: #e8edf6; --muted: #9ba6bf; --line: #27324f;
+  --target: #ff6b55; --brass: #f2bb45; --brass-ink: #241800;
+  --feed: #0a1020; --feed-fg: #dfe6f2; --feed-dim: #7b88a3;
+  --shadow: 0 1px 0 rgba(0,0,0,.3), 0 14px 34px -18px rgba(0,0,0,.7);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; border-radius: 6px; }
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); line-height: 1.08; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+.eyebrow { font-family: var(--pixel); font-size: .625rem; letter-spacing: .08em; text-transform: uppercase; color: var(--target); }
+
+/* Header */
+.top { padding-block: 20px; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand svg { width: 40px; height: 40px; flex: none; }
+.brand b { font-family: var(--display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.01em; line-height: 1; }
+.brand small { display: block; font-family: var(--pixel); font-size: .5rem; letter-spacing: .12em; color: var(--muted); margin-top: 6px; }
+.nav { display: flex; gap: 6px 20px; flex-wrap: wrap; font-weight: 700; font-size: .95rem; }
+.nav a { text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+.nav a:hover { border-bottom-color: var(--target); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+  font: 700 1rem/1 var(--body); text-decoration: none; cursor: pointer;
+  padding: 14px 20px; border-radius: 10px; border: 2px solid var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+.btn:active { transform: none; box-shadow: none; }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.primary:hover { box-shadow: 4px 4px 0 var(--target); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.coffee { background: var(--brass); color: var(--brass-ink); border-color: var(--brass-ink); }
+:root[data-theme="dark"] .btn.coffee, :root[data-theme="dark"] .btn.coffee:hover { border-color: var(--brass); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* Hero */
+.hero { padding-block: 40px 64px; }
+.what { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px 32px; align-items: baseline; }
+.what h2 { font-size: 1.5rem; font-weight: 800; }
+.what p { color: var(--muted); max-width: 40em; }
+@media (max-width: 600px) { .what { grid-template-columns: minmax(0, 1fr); } }
+section.block.what-band { padding-block: 40px; }
+.hero .wrap { max-width: 1120px; }
+.hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); font-weight: 800; margin-top: 14px; }
+.hero h1 em { font-style: normal; color: var(--target); }
+.lede { margin-top: 20px; max-width: 34em; font-size: 1.15rem; color: var(--ink); }
+.lede + .lede { margin-top: 12px; color: var(--muted); font-size: 1.05rem; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+
+.range { position: relative; }
+.range svg { width: 100%; height: auto; display: block; max-width: 440px; margin-left: auto; }
+.tag {
+  position: absolute; left: 4%; bottom: 8%;
+  background: var(--card); border: 2px solid var(--ink); border-radius: 10px;
+  padding: 10px 14px; box-shadow: var(--shadow); max-width: 15rem;
+  font-size: .9rem; line-height: 1.35; transform: rotate(-3deg);
+}
+.tag b { display: block; font-family: var(--pixel); font-size: .55rem; color: var(--target); letter-spacing: .08em; margin-bottom: 6px; }
+
+/* Kill feed */
+.feed {
+  margin-top: 36px; background: var(--feed); color: var(--feed-fg);
+  border-radius: 12px; padding: 18px 20px; max-width: 34rem;
+  font-family: var(--pixel); font-size: .625rem; line-height: 2.1;
+}
+.feed h2 { font-family: var(--pixel); font-size: .55rem; font-weight: 400; color: var(--feed-dim); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+.feed ol { list-style: none; margin: 0; padding: 0; }
+.feed li { display: flex; gap: 12px; }
+.feed time { color: var(--feed-dim); flex: none; width: 5.5em; }
+.feed .k { color: #ff7a66; }
+.feed .r { color: #8fd18a; }
+.feed .gap { color: var(--feed-dim); }
+.feed .now { color: #f2bb45; }
+.feed li { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .feed li { animation: feedIn .4s ease both; }
+  .feed li:nth-child(2) { animation-delay: .15s } .feed li:nth-child(3) { animation-delay: .3s }
+  .feed li:nth-child(4) { animation-delay: .45s } .feed li:nth-child(5) { animation-delay: .6s }
+  .feed li:nth-child(6) { animation-delay: .75s } .feed li:nth-child(7) { animation-delay: .9s }
+  @keyframes feedIn { from { transform: translateX(-6px); opacity: .35 } to { transform: none; opacity: 1 } }
+}
+
+/* Games */
+section.block { padding-block: 64px; border-top: 2px dashed var(--line); }
+.block-head { display: flex; justify-content: space-between; align-items: end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 32px; }
+.block-head h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); font-weight: 800; margin-top: 10px; }
+.block-head p { max-width: 30em; color: var(--muted); }
+
+.games { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.game {
+  background: var(--card); border: 2px solid var(--ink); border-radius: 16px; overflow: hidden;
+  display: flex; flex-direction: column; box-shadow: 6px 6px 0 var(--ink);
+}
+.shot { position: relative; aspect-ratio: 16 / 11; max-width: 100%; overflow: hidden; border-bottom: 2px solid var(--ink); }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot.ensen { background: #cfe1ea; }
+.shot.ensen img { object-position: 50% 72%; }
+.shot.night { background: #000; display: grid; place-items: center; }
+.shot.night img { image-rendering: pixelated; object-fit: cover; }
+.shot .badge {
+  position: absolute; left: 14px; top: 14px; display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.92); color: #16203a; border-radius: 999px; padding: 6px 12px 6px 6px;
+  font: 700 .8rem/1 var(--body);
+}
+.shot .badge img { width: 28px; height: 28px; border-radius: 7px; image-rendering: pixelated; }
+.shot .badge .dot { width: 28px; height: 28px; border-radius: 50%; background: #1f3a66; color: #fff; display: grid; place-items: center; font: 700 .85rem/1 var(--body); }
+.game-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.game .kicker { font-family: var(--pixel); font-size: .55rem; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+.game h3 { font-size: 2rem; font-weight: 800; }
+.game h3 span { font-weight: 600; font-size: .7em; color: var(--muted); margin-left: .25em; }
+.game.nh h3 { font-family: var(--pixel); font-size: 1.15rem; font-weight: 400; letter-spacing: .02em; line-height: 1.4; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.facts li { border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: .85rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dadnote { border-left: 3px solid var(--brass); padding-left: 12px; font-style: italic; color: var(--muted); }
+.game .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 4px; }
+.game .actions .btn { padding: 12px 18px; }
+
+/* House rules */
+.rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+.rule { display: flex; flex-direction: column; gap: 8px; }
+.rule svg { width: 34px; height: 34px; color: var(--target); }
+.rule h3 { font-size: 1.2rem; font-weight: 800; }
+.rule p { color: var(--muted); font-size: .98rem; }
+
+/* Coffee */
+.coffee-band { padding-block: 64px 72px; border-top: 2px dashed var(--line); }
+.jar {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 28px; align-items: center;
+  background: var(--card); border: 2px solid var(--ink); border-radius: 18px; padding: 32px; box-shadow: 6px 6px 0 var(--brass);
+}
+.jar svg.mug { width: 96px; height: 96px; }
+.tips { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.tips .btn { min-width: 4.5rem; font-variant-numeric: tabular-nums; }
+.tips .via { flex-basis: 100%; font-size: .85rem; color: var(--muted); }
+.jar h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; }
+.jar p { color: var(--muted); margin-top: 8px; max-width: 36em; }
+
+footer { padding-block: 28px 40px; color: var(--muted); font-size: .9rem; }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
+footer a { font-weight: 700; color: var(--ink); }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .range svg { margin: 0 auto; max-width: 320px; }
+  .tag { left: auto; right: 0; bottom: 0; }
+  .games { grid-template-columns: minmax(0, 1fr); }
+  .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .jar { grid-template-columns: minmax(0, 1fr); }
+  .jar svg.mug { width: 72px; height: 72px; }
+}
+@media (max-width: 520px) {
+  .rules { grid-template-columns: minmax(0, 1fr); }
+  .feed { font-size: .55rem; padding: 16px; }
+  .feed time { width: 4.5em; }
+  .jar { padding: 24px; }
+  .game-body { padding: 20px; }
+  .tag { position: static; transform: none; margin: 12px auto 0; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Easy Target Games, home">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>
+        <circle cx="20" cy="20" r="12" fill="var(--target)"/>
+        <circle cx="20" cy="20" r="7" fill="var(--card)"/>
+        <circle cx="20" cy="20" r="3" fill="var(--target)"/>
+        <circle cx="31" cy="11" r="1.6" fill="var(--ink)"/><circle cx="8" cy="27" r="1.6" fill="var(--ink)"/>
+      </svg>
+      <span><b>Easy Target</b><small>GAMES</small></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#games">Games</a>
+      <a href="#what">What EasyTarget?</a>
+      <a href="#coffee">Buy me a coffee</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Free browser games</p>
+        <h1>A few fun games. <em>Free to play.</em></h1>
+        <p class="lede">A small collection of games I've made. They run in your browser, they're free, and there are no ads or accounts.</p>
+        <div class="cta">
+          <a class="btn primary" href="#games">Pick a game</a>
+          <a class="btn ghost" href="#coffee">Buy me a coffee</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="games" aria-labelledby="games-title">
+    <div class="wrap">
+      <div class="block-head">
+        <div>
+          <p class="eyebrow">The shelf</p>
+          <h2 id="games-title">The games</h2>
+        </div>
+        <p>Both run in your browser, with nothing to install.</p>
+      </div>
+
+      <div class="games">
+        <article class="game" aria-labelledby="ensen-title">
+          <div class="shot ensen">
+            <img src="img/ensen-kansai.jpg" alt="Ensen game board zoomed in on Osaka, Kyoto and Nagoya, with yellow and teal rail lines between the cities and houses built on their plots." width="1020" height="776" loading="lazy">
+            <span class="badge"><span class="dot" lang="ja" aria-hidden="true">沿</span>Board game night</span>
+          </div>
+          <div class="game-body">
+            <p class="kicker">Railway building · 2 to 4 players</p>
+            <h3 id="ensen-title">Ensen <span lang="ja">沿線</span></h3>
+            <p>Run a private railway across Japan. Lay track and grow the towns around your stations. Play on one screen passed around the table, or start an online room and share the code with friends.</p>
+            <ul class="facts" aria-label="Ensen at a glance">
+              <li>2–4 players</li><li>60–90 min</li><li>Same couch or online</li><li>Saves as you go</li>
+            </ul>
+            <p class="dadnote">There are some rules to learn, so the first game takes a while.</p>
+            <div class="actions">
+              <a class="btn primary" href="https://originaleasytarget.github.io/ensen/web/">Play Ensen</a>
+              <a class="btn ghost" href="https://originaleasytarget.github.io/ensen/web/Ensen-Rules.pdf">Read the rules</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game nh" aria-labelledby="nh-title">
+          <div class="shot night">
+            <img src="img/night-hunt-play.png" alt="Night Hunt in play: a pixel-art explorer points a flashlight down a stone corridor. Everything outside the beam is black." width="640" height="440" loading="lazy">
+            <span class="badge"><img src="img/night-hunt-icon.png" alt="" width="28" height="28">Quick play</span>
+          </div>
+          <div class="game-body">
+            <p class="kicker">Retro treasure hunt · 1 player</p>
+            <h3 id="nh-title">Night Hunt</h3>
+            <p>Find the treasure in a dark maze with only a flashlight, and watch out for monsters. You can set the maze size, the beam length and the number of monsters.</p>
+            <ul class="facts" aria-label="Night Hunt at a glance">
+              <li>1 player</li><li>Short rounds</li><li>Keyboard, mouse or touch</li><li>Works offline</li>
+            </ul>
+            <div class="actions">
+              <a class="btn primary" href="https://originaleasytarget.github.io/night-hunt/">Play Night Hunt</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block what-band" id="what" aria-labelledby="what-title">
+    <div class="wrap what">
+      <h2 id="what-title">What EasyTarget?</h2>
+      <p>My online gaming started with Doom demos. I had no idea what I was doing, so I was an easy target. The name stuck. 🤷‍♂️</p>
+    </div>
+  </section>
+
+  <section class="coffee-band" id="coffee" aria-labelledby="coffee-title">
+    <div class="wrap">
+      <div class="jar">
+        <svg class="mug" viewBox="0 0 96 96" aria-hidden="true">
+          <path d="M34 14c-4 6 4 8 0 14M48 10c-4 6 4 8 0 14M62 14c-4 6 4 8 0 14" fill="none" stroke="var(--muted)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M70 46h6a10 10 0 0 1 0 20h-7" fill="none" stroke="var(--ink)" stroke-width="5"/>
+          <path d="M18 36h54v30a18 18 0 0 1-18 18H36a18 18 0 0 1-18-18z" fill="var(--brass)" stroke="var(--ink)" stroke-width="4"/>
+          <circle cx="45" cy="58" r="11" fill="none" stroke="var(--ink)" stroke-width="3"/>
+          <circle cx="45" cy="58" r="4" fill="var(--target)"/>
+        </svg>
+        <div>
+          <h2 id="coffee-title">Enjoyed a game?</h2>
+          <p>The games are free. If you'd like to say thanks, you can buy me a coffee through PayPal.</p>
+        </div>
+        <!-- PayPal.me name: EdMcFadden. To change it, edit the three links below. -->
+        <div class="tips" role="group" aria-label="Buy me a coffee with PayPal">
+          <a class="btn coffee" href="https://paypal.me/EdMcFadden/2USD" rel="noopener">$2</a>
+          <a class="btn coffee" href="https://paypal.me/EdMcFadden/5USD" rel="noopener">$5</a>
+          <a class="btn coffee" href="https://paypal.me/EdMcFadden/10USD" rel="noopener">$10</a>
+          <p class="via">via PayPal</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Made by Ed McFadden. © 2026</p>
+    <p><a href="https://github.com/OriginalEasyTarget">Games on GitHub</a></p>
+  </div>
+</footer>
+</body>
+</html>
