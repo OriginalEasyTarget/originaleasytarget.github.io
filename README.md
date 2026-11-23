@@ -1,6 +1,6 @@
-# Easy Target Games
+# EasyTarget Games
 
-Landing page for the free games at https://originaleasytarget.github.io.
+Landing page for the free games at https://easytargetgames.com (custom domain set in `CNAME`).
 
 Plain static HTML, no build step. Edit `index.html`, and put images in `img/`.
 
